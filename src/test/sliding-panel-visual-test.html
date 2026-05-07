@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sliding Panel Visual Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #0A0A0F;
+      color: white;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    .container {
+      max-width: 448px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2rem;
+    }
+    
+    .sliding-container {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .sliding-panel {
+      display: flex;
+      width: 200%;
+      transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .sliding-panel.sign-up {
+      transform: translateX(-50%);
+    }
+    
+    .panel {
+      width: 50%;
+      flex-shrink: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .sign-in-panel {
+      background: rgba(0, 240, 255, 0.05);
+    }
+    
+    .sign-up-panel {
+      background: rgba(139, 92, 246, 0.05);
+    }
+    
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00F0FF;
+      color: #0A0A0F;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+    }
+    
+    .info {
+      margin-top: 20px;
+      padding: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align: center; margin-bottom: 2rem;">Sliding Panel Test</h1>
+    
+    <div class="sliding-container">
+      <div class="sliding-panel" id="slidingPanel">
+        <div class="panel sign-in-panel">
+          <h2>Sign In Panel</h2>
+          <p>This is the Sign In form</p>
+        </div>
+        <div class="panel sign-up-panel">
+          <h2>Sign Up Panel</h2>
+          <p>This is the Sign Up form</p>
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align: center;">
+      <button onclick="togglePanel()">Toggle Panel</button>
+    </div>
+    
+    <div class="info">
+      <strong>Test Criteria:</strong>
+      <ul style="margin: 10px 0; padding-left: 20px;">
+        <li>✓ 200% wide container with two panels side-by-side</li>
+        <li>✓ Horizontal translate animation (0% to -50%)</li>
+        <li>✓ Spring easing with overshoot (cubic-bezier)</li>
+        <li>✓ Duration ~500ms</li>
+        <li>✓ Overflow clipping hides off-screen panel</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script>
+    let isSignUp = false;
+    const panel = document.getElementById('slidingPanel');
+    
+    function togglePanel() {
+      isSignUp = !isSignUp;
+      if (isSignUp) {
+        panel.classList.add('sign-up');
+      } else {
+        panel.classList.remove('sign-up');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Visual Test</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #ffffff;
+        }
+        
+        h1 {
+            color: #00d4ff;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .test-section h2 {
+            color: #00d4ff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .test-case {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .test-input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+        }
+        
+        .test-button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #00d4ff, #9d4edd);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .result.valid {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+        
+        .result.invalid {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Validation Visual Test</h1>
+    
+    <div class="test-section">
+        <h2>Email Validation</h2>
+        <div class="test-case">
+            <label>Test Email:</label>
+            <input type="text" class="test-input" id="email-test" placeholder="Enter email to test">
+            <button class="test-button" onclick="testEmail()">Validate Email</button>
+            <div id="email-result"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Password Validation</h2>
+        <div class="test-case">
+            <label>Test Password:</label>
+            <input type="text" class="test-input" id="password-test" placeholder="Enter password to test">
+            <button class="test-button" onclick="testPassword()">Validate Password</button>
+            <div id="password-result"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Username Validation</h2>
+        <div class="test-case">
+            <label>Test Username:</label>
+            <input type="text" class="test-input" id="username-test" placeholder="Enter username to test">
+            <button class="test-button" onclick="testUsername()">Validate Username</button>
+            <div id="username-result"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Pre-defined Test Cases</h2>
+        <button class="test-button" onclick="runAllTests()">Run All Test Cases</button>
+        <div id="all-tests-result"></div>
+    </div>
+
+    <script type="module">
+        // Validation rules (copied from modern-auth.html)
+        const validationRules = {
+            email: {
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: 'Please enter a valid email address'
+            },
+            password: {
+                minLength: 8,
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+                message: 'Password must be at least 8 characters with uppercase, lowercase, and number'
+            },
+            username: {
+                minLength: 3,
+                maxLength: 20,
+                pattern: /^[a-zA-Z0-9_]+$/,
+                message: 'Username must be 3-20 characters (letters, numbers, underscore only)'
+            }
+        };
+
+        function validateField(fieldName, value) {
+            const rule = validationRules[fieldName];
+            
+            if (!rule) {
+                return { valid: true };
+            }
+            
+            if (rule.minLength && value.length < rule.minLength) {
+                return { valid: false, message: rule.message };
+            }
+            
+            if (rule.maxLength && value.length > rule.maxLength) {
+                return { valid: false, message: rule.message };
+            }
+            
+            if (rule.pattern && !rule.pattern.test(value)) {
+                return { valid: false, message: rule.message };
+            }
+            
+            return { valid: true };
+        }
+
+        function displayResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            if (result.valid) {
+                element.className = 'result valid';
+                element.textContent = '✓ Valid';
+            } else {
+                element.className = 'result invalid';
+                element.textContent = '✗ ' + result.message;
+            }
+        }
+
+        window.testEmail = function() {
+            const value = document.getElementById('email-test').value;
+            const result = validateField('email', value);
+            displayResult('email-result', result);
+        };
+
+        window.testPassword = function() {
+            const value = document.getElementById('password-test').value;
+            const result = validateField('password', value);
+            displayResult('password-result', result);
+        };
+
+        window.testUsername = function() {
+            const value = document.getElementById('username-test').value;
+            const result = validateField('username', value);
+            displayResult('username-result', result);
+        };
+
+        window.runAllTests = function() {
+            const testCases = [
+                { field: 'email', value: 'user@example.com', expected: true },
+                { field: 'email', value: 'invalid-email', expected: false },
+                { field: 'password', value: 'Password123', expected: true },
+                { field: 'password', value: 'weak', expected: false },
+                { field: 'username', value: 'user123', expected: true },
+                { field: 'username', value: 'ab', expected: false },
+            ];
+
+            const results = testCases.map(test => {
+                const result = validateField(test.field, test.value);
+                const passed = result.valid === test.expected;
+                return {
+                    ...test,
+                    result: result.valid,
+                    passed
+                };
+            });
+
+            const allPassed = results.every(r => r.passed);
+            const resultElement = document.getElementById('all-tests-result');
+            
+            let html = '<div style="margin-top: 15px;">';
+            results.forEach(r => {
+                const icon = r.passed ? '✓' : '✗';
+                const color = r.passed ? '#10b981' : '#ef4444';
+                html += `<div style="color: ${color}; margin: 5px 0;">${icon} ${r.field}: "${r.value}" - ${r.passed ? 'PASS' : 'FAIL'}</div>`;
+            });
+            html += '</div>';
+            
+            resultElement.innerHTML = html;
+            resultElement.className = allPassed ? 'result valid' : 'result invalid';
+        };
+
+        console.log('Validation visual test loaded');
+    </script>
+</body>
+</html>

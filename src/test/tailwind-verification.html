@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind CSS Variable Verification</title>
+  <style>
+    /* Import the main CSS file */
+    @import url('../index.css');
+  </style>
+</head>
+<body class="bg-bg text-text p-8">
+  <div class="max-w-4xl mx-auto space-y-8">
+    <h1 class="text-4xl font-bold text-primary mb-4">Tailwind CSS Variable Verification</h1>
+    
+    <section class="bg-card p-6 rounded-lg border border-border">
+      <h2 class="text-2xl font-bold mb-4">Color Variables</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-primary p-4 rounded text-white">Primary</div>
+        <div class="bg-accent p-4 rounded text-white">Accent</div>
+        <div class="bg-card-2 p-4 rounded border border-border">Card-2</div>
+        <div class="bg-success p-4 rounded text-white">Success</div>
+        <div class="bg-warning p-4 rounded text-white">Warning</div>
+        <div class="bg-danger p-4 rounded text-white">Danger</div>
+      </div>
+    </section>
+
+    <section class="bg-card p-6 rounded-lg border border-border">
+      <h2 class="text-2xl font-bold mb-4">Typography Scale</h2>
+      <div class="space-y-2">
+        <p class="text-xs">Extra Small Text (text-xs)</p>
+        <p class="text-sm">Small Text (text-sm)</p>
+        <p class="text-base">Base Text (text-base)</p>
+        <p class="text-lg">Large Text (text-lg)</p>
+        <p class="text-xl">Extra Large Text (text-xl)</p>
+        <p class="text-2xl">2XL Text (text-2xl)</p>
+        <p class="text-3xl">3XL Text (text-3xl)</p>
+        <p class="text-4xl">4XL Text (text-4xl)</p>
+      </div>
+    </section>
+
+    <section class="bg-card p-6 rounded-lg border border-border">
+      <h2 class="text-2xl font-bold mb-4">Text Colors</h2>
+      <div class="space-y-2">
+        <p class="text-text">Primary Text (text-text)</p>
+        <p class="text-text-dim">Dimmed Text (text-text-dim)</p>
+        <p class="text-primary">Primary Color Text (text-primary)</p>
+        <p class="text-success">Success Text (text-success)</p>
+        <p class="text-warning">Warning Text (text-warning)</p>
+        <p class="text-danger">Danger Text (text-danger)</p>
+      </div>
+    </section>
+
+    <section class="bg-card p-6 rounded-lg border border-border">
+      <h2 class="text-2xl font-bold mb-4">Spacing Scale</h2>
+      <div class="space-y-4">
+        <div class="bg-primary-light p-1">Padding 1 (p-1)</div>
+        <div class="bg-primary-light p-2">Padding 2 (p-2)</div>
+        <div class="bg-primary-light p-3">Padding 3 (p-3)</div>
+        <div class="bg-primary-light p-4">Padding 4 (p-4)</div>
+        <div class="bg-primary-light p-6">Padding 6 (p-6)</div>
+        <div class="bg-primary-light p-8">Padding 8 (p-8)</div>
+      </div>
+    </section>
+
+    <section class="bg-card p-6 rounded-lg border border-border">
+      <h2 class="text-2xl font-bold mb-4">Theme Toggle Test</h2>
+      <button 
+        id="theme-toggle"
+        class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"
+      >
+        Toggle Theme
+      </button>
+      <p class="mt-4 text-text-dim">Click the button to test theme switching</p>
+    </section>
+
+    <section class="bg-card p-6 rounded-lg border border-border">
+      <h2 class="text-2xl font-bold mb-4">CSS Variable Values</h2>
+      <div class="space-y-2 font-mono text-sm">
+        <div class="grid grid-cols-2 gap-2">
+          <span class="text-text-dim">--color-primary:</span>
+          <span id="var-primary" class="text-text"></span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <span class="text-text-dim">--color-bg:</span>
+          <span id="var-bg" class="text-text"></span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <span class="text-text-dim">--color-text:</span>
+          <span id="var-text" class="text-text"></span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <span class="text-text-dim">--text-base:</span>
+          <span id="var-text-base" class="text-text"></span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <span class="text-text-dim">--space-4:</span>
+          <span id="var-space-4" class="text-text"></span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+      updateVariableDisplay();
+    });
+
+    // Display CSS variable values
+    function updateVariableDisplay() {
+      const styles = getComputedStyle(document.documentElement);
+      document.getElementById('var-primary').textContent = styles.getPropertyValue('--color-primary');
+      document.getElementById('var-bg').textContent = styles.getPropertyValue('--color-bg');
+      document.getElementById('var-text').textContent = styles.getPropertyValue('--color-text');
+      document.getElementById('var-text-base').textContent = styles.getPropertyValue('--text-base');
+      document.getElementById('var-space-4').textContent = styles.getPropertyValue('--space-4');
+    }
+
+    // Initial display
+    updateVariableDisplay();
+  </script>
+</body>
+</html>

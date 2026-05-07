@@ -1,0 +1,68 @@
+# Dependencies
+node_modules
+node_modules/
+
+# Build outputs
+dist
+dist/
+build
+build/
+*.log
+build-output.txt
+build_error.log
+build_success.log
+debug_vite.log
+err.txt
+install-log.txt
+
+# Environment variables & API keys (IMPORTANT - NEVER COMMIT THESE!)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+*.env
+
+# Firebase sensitive files (IMPORTANT - Contains API keys!)
+.firebaserc
+firebase-debug.log
+firebase-debug.*.log
+.firebase/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Kiro AI files (optional - uncomment if you don't want to share)
+.kiro/
+.claude/
+.vscode/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Test output files
+test-output.json
+test-output.txt
+test-results.json
+*.tsbuildinfo
+
+# Temporary files
+*.tmp
+*.temp
+scratch/
+ollama
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Lock files (optional - some teams prefer to commit these)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

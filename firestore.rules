@@ -1,0 +1,106 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ──
+    function isAuth() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isAuth() && request.auth.uid == uid;
+    }
+
+    // ── User Accounts ──
+    match /users/{userId} {
+      allow read: if isAuth();
+      allow create: if isOwner(userId);
+      allow update, delete: if isOwner(userId);
+    }
+
+    // ── Beauty Business Profiles (salons/spas/studios) ──
+    // Anyone can READ (customers discovering businesses)
+    // Only the owner can WRITE their own profile
+    match /salons/{salonId} {
+      allow read: if true;
+      allow create: if isOwner(salonId);
+      allow update, delete: if isOwner(salonId);
+    }
+
+    // ── Barbers Collection (for backward compatibility) ──
+    match /barbers/{barberId} {
+      allow read: if true;
+      allow create: if isOwner(barberId);
+      allow update, delete: if isOwner(barberId);
+    }
+
+    // ── Bookings & Tokens (Queue / Appointment entries) ──
+    // Any logged-in user can create a booking
+    // Business owner or the customer who created it can modify
+    match /tokens/{tokenId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && (
+        resource.data.salonId == request.auth.uid ||
+        resource.data.customerId == request.auth.uid
+      );
+    }
+
+    // ── Reviews ──
+    // Public read, auth required to create
+    // Only the reviewer can edit/delete
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && resource.data.customerId == request.auth.uid;
+    }
+
+    // ── Notifications ──
+    match /notifications/{notifId} {
+      allow read, update: if isAuth() && resource.data.userId == request.auth.uid;
+      allow create: if isAuth();
+      allow delete: if isAuth() && resource.data.userId == request.auth.uid;
+    }
+
+    // ── Messages / Chat ──
+    match /messages/{messageId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && resource.data.senderId == request.auth.uid;
+    }
+
+    // ── Customer Profiles ──
+    match /customers/{customerId} {
+      allow read: if true;
+      allow create: if isOwner(customerId);
+      allow update, delete: if isOwner(customerId);
+    }
+
+    // ── Products (E-commerce) ──
+    // Anyone can read products
+    // Only business owner can create/update/delete their products
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && resource.data.businessId == request.auth.uid;
+    }
+
+    // ── Business sub-collections ──
+    // services, staff, inventory, bridal-packages, consent-forms,
+    // memberships, loyalty, invoices, expenses, coupons, etc.
+    match /salons/{salonId}/{subcollection}/{docId} {
+      allow read: if isAuth();
+      allow write: if isOwner(salonId);
+    }
+
+    // ── Barbers sub-collections (for backward compatibility) ──
+    match /barbers/{barberId}/{subcollection}/{docId} {
+      allow read: if isAuth();
+      allow write: if isOwner(barberId);
+    }
+
+    // ── Catch-all: deny everything else ──
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BusinessStatsCard Visual Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* CSS Variables for Theme System */
+    :root {
+      --color-primary: #10B981;
+      --color-primary-dark: #059669;
+      --color-primary-light: #34D399;
+      --color-accent: #10B981;
+      --color-bg: #030303;
+      --color-card: #0A0A0B;
+      --color-card-2: #121214;
+      --color-border: rgba(255, 255, 255, 0.05);
+      --color-text: #F1F5F9;
+      --color-text-dim: #94A3B8;
+      --color-success: #10B981;
+      --color-danger: #EF4444;
+    }
+
+    :root.light {
+      --color-bg: #F7F9FC;
+      --color-card: #FFFFFF;
+      --color-card-2: #F1F5F9;
+      --color-border: rgba(0, 0, 0, 0.06);
+      --color-text: #0F172A;
+      --color-text-dim: #64748B;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      transition: background-color 300ms, color 300ms;
+    }
+
+    .bg-card {
+      background-color: var(--color-card);
+    }
+
+    .bg-card-2 {
+      background-color: var(--color-card-2);
+    }
+
+    .border-border {
+      border-color: var(--color-border);
+    }
+
+    .text-text {
+      color: var(--color-text);
+    }
+
+    .text-text-dim {
+      color: var(--color-text-dim);
+    }
+
+    .text-success {
+      color: var(--color-success);
+    }
+
+    .text-danger {
+      color: var(--color-danger);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 480px) {
+      .breakpoint-indicator::before {
+        content: "Mobile (≤480px)";
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 1023px) {
+      .breakpoint-indicator::before {
+        content: "Tablet (481-1023px)";
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .breakpoint-indicator::before {
+        content: "Desktop (≥1024px)";
+      }
+    }
+  </style>
+</head>
+<body class="p-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-4">BusinessStatsCard Visual Test</h1>
+      <div class="flex gap-4 items-center">
+        <button 
+          onclick="toggleTheme()" 
+          class="px-4 py-2 rounded-lg bg-card border border-border hover:opacity-80 transition-opacity"
+        >
+          Toggle Theme
+        </button>
+        <span class="breakpoint-indicator text-text-dim font-mono text-sm"></span>
+      </div>
+    </div>
+
+    <!-- Single Card Example -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">Single Card</h2>
+      <div class="max-w-md">
+        <div class="p-6 rounded-2xl bg-card border border-border">
+          <div class="flex items-center gap-2 mb-2">
+            <div
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-card-2 border border-border"
+              style="background: #10B98115; border: 1px solid #10B98125"
+            >
+              👥
+            </div>
+            <span class="text-[10px] text-text-dim font-bold uppercase tracking-wider">Total Customers</span>
+          </div>
+          <div class="text-xl font-black text-text" style="color: #10B981">1,234</div>
+          <div class="text-[10px] font-bold mt-1 flex items-center gap-1 text-success">
+            ▲ 12.5%
+            <span class="text-text-dim font-medium">vs last week</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Responsive Layout Example -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">Responsive Layout (Resize window to test)</h2>
+      <p class="text-text-dim mb-4">
+        Mobile: Vertical stack with 16px gap<br>
+        Tablet: Horizontal layout with 24px gap<br>
+        Desktop: 2-column grid with 32px gap
+      </p>
+      
+      <!-- Responsive Container -->
+      <div class="flex flex-col gap-4 md:flex-row md:gap-6 lg:grid lg:grid-cols-2 lg:gap-8">
+        <!-- Card 1 -->
+        <div class="p-6 rounded-2xl bg-card border border-border">
+          <div class="flex items-center gap-2 mb-2">
+            <div
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-card-2 border border-border"
+              style="background: #10B98115; border: 1px solid #10B98125"
+            >
+              👥
+            </div>
+            <span class="text-[10px] text-text-dim font-bold uppercase tracking-wider">Total Customers</span>
+          </div>
+          <div class="text-xl font-black text-text" style="color: #10B981">1,234</div>
+          <div class="text-[10px] font-bold mt-1 flex items-center gap-1 text-success">
+            ▲ 12.5%
+            <span class="text-text-dim font-medium">vs last week</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-2xl bg-card border border-border">
+          <div class="flex items-center gap-2 mb-2">
+            <div
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-card-2 border border-border"
+              style="background: #6366F115; border: 1px solid #6366F125"
+            >
+              📅
+            </div>
+            <span class="text-[10px] text-text-dim font-bold uppercase tracking-wider">Appointments Today</span>
+          </div>
+          <div class="text-xl font-black text-text" style="color: #6366F1">42</div>
+          <div class="text-[10px] font-bold mt-1 flex items-center gap-1 text-danger">
+            ▼ 5.2%
+            <span class="text-text-dim font-medium">vs last week</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-2xl bg-card border border-border">
+          <div class="flex items-center gap-2 mb-2">
+            <div
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-card-2 border border-border"
+              style="background: #F59E0B15; border: 1px solid #F59E0B25"
+            >
+              💰
+            </div>
+            <span class="text-[10px] text-text-dim font-bold uppercase tracking-wider">Revenue This Month</span>
+          </div>
+          <div class="text-xl font-black text-text" style="color: #F59E0B">$45,678</div>
+          <div class="text-[10px] font-bold mt-1 flex items-center gap-1 text-success">
+            ▲ 18.3%
+            <span class="text-text-dim font-medium">vs last week</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="p-6 rounded-2xl bg-card border border-border">
+          <div class="flex items-center gap-2 mb-2">
+            <div
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-card-2 border border-border"
+              style="background: #EF444415; border: 1px solid #EF444425"
+            >
+              ⭐
+            </div>
+            <span class="text-[10px] text-text-dim font-bold uppercase tracking-wider">Average Rating</span>
+          </div>
+          <div class="text-xl font-black text-text" style="color: #EF4444">4.8</div>
+          <div class="text-[10px] font-bold mt-1 flex items-center gap-1 text-success">
+            ▲ 2.1%
+            <span class="text-text-dim font-medium">vs last week</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Theme Comparison -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Theme Comparison</h2>
+      <p class="text-text-dim mb-4">
+        Click "Toggle Theme" button above to switch between dark and light modes.
+        All colors should transition smoothly and maintain proper contrast ratios.
+      </p>
+    </section>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.documentElement.classList.toggle('light');
+    }
+  </script>
+</body>
+</html>
