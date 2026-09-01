@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Line-Free India — Digital Token Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ============ HEADER ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🇮🇳</span>
+      <div>
+        <h1>Line-Free India</h1>
+        <p class="tagline">Skip the queue. Take a digital token.</p>
+      </div>
+    </div>
+    <button id="themeToggle" class="ghost-btn" title="Dark / Light mode">🌙</button>
+  </header>
+
+  <!-- ============ CUSTOMER PANEL ============ -->
+  <main class="grid">
+    <section class="card customer">
+      <h2>🙋 Customer</h2>
+      <p class="muted">Pick a shop, take a token, and relax. We'll tell you when it's your turn.</p>
+
+      <label>Choose a shop</label>
+      <select id="shopSelect"></select>
+
+      <label>Your name</label>
+      <input id="custName" type="text" placeholder="e.g. Rahul" />
+
+      <button id="getTokenBtn" class="primary-btn">Get My Token →</button>
+
+      <!-- Your token ticket shows up here -->
+      <div id="myTicket" class="ticket hidden"></div>
+    </section>
+
+    <!-- ============ LIVE QUEUE (shared) ============ -->
+    <section class="card queue">
+      <h2>📋 Live Queue</h2>
+      <p class="muted">Everyone who took a token for the selected shop, in order.</p>
+      <div id="nowServing" class="now-serving">Now serving: —</div>
+      <ol id="queueList" class="queue-list"></ol>
+    </section>
+
+    <!-- ============ SHOP / COUNTER PANEL ============ -->
+    <section class="card shop">
+      <h2>💈 Shop Counter</h2>
+      <p class="muted">Shop owner taps "Call Next" to serve the next customer.</p>
+
+      <label>Shop</label>
+      <select id="shopSelect2"></select>
+
+      <button id="callNextBtn" class="primary-btn">📢 Call Next Customer</button>
+      <button id="doneBtn" class="ghost-btn wide">✅ Mark Current as Done</button>
+
+      <div id="servedBox" class="served-box"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Built with just 3 files: <code>index.html</code> + <code>style.css</code> + <code>script.js</code>. A beginner-friendly demo of the Line-Free India concept.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
