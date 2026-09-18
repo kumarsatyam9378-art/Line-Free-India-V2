@@ -76,3 +76,8 @@ Line-Free-India-V2-main/
 # yarn.lock
 # pnpm-lock.yaml
 
+
+# Play Store signing (NEVER commit)
+android/*.keystore
+android/*.jks
+android/keystore.properties

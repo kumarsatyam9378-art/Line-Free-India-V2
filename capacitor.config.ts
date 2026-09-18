@@ -5,6 +5,10 @@ const config: CapacitorConfig = {
   appName: 'Line Free India',
   webDir: 'dist',
   server: { androidScheme: 'https' },
+  android: {
+    backgroundColor: '#FFFFFF',
+    allowMixedContent: false,
+  },
   plugins: {
     GoogleAuth: {
       scopes: ['profile', 'email'],
